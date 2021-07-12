@@ -19,12 +19,13 @@
             </div>
         </div>
     </header>
-    <div class="form-content">
-        <form class="form" action="#">
+    <div id="formId" class="form-content">
+        <form class="form" action="#" onreset="reserForm()" onsubmit="save()">
             <div class="form-head">Employee Payroll form</div>
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
                 <input class="input" type="text" id="name" name="name" placeholder="Enter Your Name" required>
+                <error-output class = "text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="profile">Profile Image</label>
@@ -148,8 +149,9 @@
                     <button type="reset" class="resetButton button">Reset</button>
                 </div>
             </div>
-            <script src="../Employee Payroll App/JS/employee.js"></script>
         </form>
     </div>
+    <script src="../Employee Payroll App/JS/employee.js"></script>
+    <script src="../Employee Payroll App/JS/addEmployee.js"></script>
 </body>
 </html>
