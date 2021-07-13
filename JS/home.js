@@ -1,8 +1,17 @@
-window.addEventListener('DOMContentLoaded',() => {
+let employeePayrollList;
+window.addEventListener('DOMContentLoaded', () => {
+    employeePayrollList = getEmployeePayrollDataFromStorage();
+    document.querySelector(".emp-count").textContent = employeePayrollList.length;
     createInnerHtml();
 });
 
+const getEmployeePayrollDataFromStorage = () => {
+    return localStorage.getItem('EmployeePayrollList') ? JSON.parse(localStorage.getItem('EmployeePayrollList')) : [];
+}
 const createInnerHtml = () => {
+
+    if(employeePayrollList.length == 0 ) return;
+
     const headerHtml = `<tr>
     <th></th>
     <th>Name</th>
@@ -12,9 +21,9 @@ const createInnerHtml = () => {
     <th>Start Date</th>
     <th>Actions</th>
     </tr>`;
+
     let innerHtml = `${headerHtml}`;
-    let employeePayrollList = createEmployeePayrollJson();
-    for(const employeePayrollData of employeePayrollList) {
+    for(const employeePayrollData of employeePayrollList){
         innerHtml = `${innerHtml}
         <tr>
             <td><img class="profile" alt="" src="${employeePayrollData._profilePic}"></td>
@@ -22,7 +31,7 @@ const createInnerHtml = () => {
             <td>${employeePayrollData._gender}</td>
             <td>${getDeptHtml(employeePayrollData._department)}</td>
             <td>${employeePayrollData._salary}</td>
-            <td>${employeePayrollData._startDate}</td>
+            <td>${formatDate(employeePayrollData._startDate)}</td>
             <td>
                 <img name="${employeePayrollData._id}" onclick="remove()" alt="delete" src="../Employee Payroll App/Assets/icons/delete-black-18dp.svg">
                 <img name="${employeePayrollData._id}" onclick="update()" alt="edit" src="../Employee Payroll App/Assets/icons/create-black-18dp.svg">
@@ -40,33 +49,11 @@ const getDeptHtml = (deptList) => {
     return deptHtml;
 }
 
-const createEmployeePayrollJson = () => {
-    let employeePayrollListLocal = [
-        {
-            _name: 'Pradnya Patil',
-            _gender: 'Female',
-            _department: [
-                'HR'
-            ],
-            _salary: '350000',
-            _startDate: '20 Aug 2020',
-            _note: 'Hello',
-            _id: new Date().getTime(),
-            _profilePic: '../Employee Payroll App/Assets/Ellipse -1.png'
-        },
-        {
-            _name: 'Prathamesh',
-            _gender: 'Male',
-            _department: [
-                'Engineering',
-                'Finance'
-            ],
-            _salary: '350000',
-            _startDate: '26 Mar 2019',
-            _note: 'Hii',
-            _id: new Date().getTime(),
-            _profilePic: '../Employee Payroll App/Assets/Ellipse -2.png'
-        }
-    ];
-    return employeePayrollListLocal;
+const formatDate = (date) => {
+    let startDate = new Date(date);
+    const options = {
+        year: 'numeric', month: 'long', day: 'numeric'
+    };
+    const empDate = !startDate ? "undefined" : startDate.toLocaleDateString("en-IN", options);
+    return empDate;
 }

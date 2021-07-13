@@ -53,11 +53,10 @@ class EmployeePayrollData {
     }
 
     toString() {
-        const options = {year: 'numeric', month: 'long', day: 'numeric'};
-        const empDate = !this.startDate ? "undefined":
-                        this.startDate.toLocalDateString("en-US", options);
-        return "id=" + this.id + ", name=" + this.name + ", gender" + this.gender + ", profilePic=" + this.profilePic
-                + ", department=" + this.department + ", salary=" + this.salary + ", startDate=" + 
-                this.startDate + ", note=" + this.note;
+        const options = {
+            year: 'numeric', month: 'numeric', day: 'numeric'
+        };
+        const empDate = !this.startDate ? "undefined" : this.startDate.toLocaleDateString("en-IN", options);
+        return "name = " + this.name + ", profilePic = " + this.profilePic + ", salary = " + this.salary + ", gender = " + this.gender + ", department = " + this.department + ", startDate = " + empDate + ", notes= " + this.notes;
     }
 }
