@@ -1,11 +1,11 @@
-class EmployeePayrollData {
+class EmployeePayrollData{
     get id(){
         return this._id;
     }
     set id(id){
         this._id = id;
     }
-    get name() {
+    get name(){
         return this._name;
     }
     set name(name) {
@@ -39,24 +39,24 @@ class EmployeePayrollData {
     set salary(salary){
         this._salary=salary;
     }
-    get note(){
+    get notes(){
         return this._notes;
     }
-    set note(note){
-        this._note = note;
+    set notes(notes){
+        this._notes = notes;
     }
     get startDate(){
         return this._startDate;
     }
     set startDate(startDate){
-        this._startDate = startDate;
+        if (startDate <= new Date())
+            this._startDate = startDate;
+        else
+            throw 'StartDate is Invalid!';
     }
 
     toString() {
-        const options = {
-            year: 'numeric', month: 'numeric', day: 'numeric'
-        };
-        const empDate = !this.startDate ? "undefined" : this.startDate.toLocaleDateString("en-IN", options);
-        return "name = " + this.name + ", profilePic = " + this.profilePic + ", salary = " + this.salary + ", gender = " + this.gender + ", department = " + this.department + ", startDate = " + empDate + ", notes= " + this.notes;
+        const empDate = formatDate(this.startDate);
+        return "id = "+this.id+", name = " + this.name + ", profilePic = " + this.profilePic + ", salary = " + this.salary + ", gender = " + this.gender + ", department = " + this.department + ", startDate = " + empDate + ", notes= " + this.notes;
     }
 }
